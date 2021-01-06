@@ -6,7 +6,7 @@
 /*   By: khelegbe <khelegbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 16:59:38 by khelegbe          #+#    #+#             */
-/*   Updated: 2020/12/29 17:12:13 by khelegbe         ###   ########.fr       */
+/*   Updated: 2021/01/04 16:56:28 by khelegbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,10 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 
 int		get_next_line(int fd, char **line)
 {
-	char	buff[BUFFER_SIZE + 1];
-	char	new_line[100];
-	int		bytes_readed;
+	char		buff[BUFFER_SIZE + 1];
+	char		new_line[100];
+	int			bytes_readed;
+	static char	*remaining;
 	unsigned int i;
 
 	bytes_readed = read(fd, buff, BUFFER_SIZE);
