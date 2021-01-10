@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: khelegbe <khelegbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 16:59:38 by khelegbe          #+#    #+#             */
-/*   Updated: 2021/01/11 00:22:12 by khelegbe         ###   ########.fr       */
+/*   Updated: 2021/01/11 00:38:33 by khelegbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	read_file(int fd, char **remaining, int *bytes_readed, char **buff)
 {
@@ -30,7 +30,7 @@ void	read_file(int fd, char **remaining, int *bytes_readed, char **buff)
 int		get_next_line(int fd, char **line)
 {
 	char			*buff;
-	static char		*remaining;
+	static char		*remaining[4096];
 	int				bytes_readed;
 
 	bytes_readed = 1;
@@ -39,15 +39,15 @@ int		get_next_line(int fd, char **line)
 	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buff)
 		return (-1);
-	while (!ft_is_new_line(remaining) && bytes_readed != 0)
+	while (!ft_is_new_line(remaining[fd]) && bytes_readed != 0)
 	{
-		read_file(fd, &remaining, &bytes_readed, &buff);
+		read_file(fd, &remaining[fd], &bytes_readed, &buff);
 		if (bytes_readed == -1)
 			return (-1);
 	}
 	free(buff);
-	*line = ft_get_new_line(remaining);
-	remaining = ft_get_the_rest(remaining);
+	*line = ft_get_new_line(remaining[fd]);
+	remaining[fd] = ft_get_the_rest(remaining[fd]);
 	if (bytes_readed == 0)
 		return (0);
 	return (1);
