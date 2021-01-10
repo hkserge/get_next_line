@@ -6,57 +6,41 @@
 /*   By: khelegbe <khelegbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 16:59:38 by khelegbe          #+#    #+#             */
-/*   Updated: 2021/01/04 16:56:28 by khelegbe         ###   ########.fr       */
+/*   Updated: 2021/01/10 23:30:37 by khelegbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
-
-void	*ft_memmove(void *dest, const void *src, size_t n)
-{
-	size_t	i;
-
-	if (dest == src || !n)
-		return (dest);
-	i = 0;
-	if (dest > src)
-	{
-		while (n > 0)
-		{
-			((char*)dest)[n - 1] = ((char*)src)[n - 1];
-			n--;
-		}
-	}
-	else
-	{
-		while (i < n)
-		{
-			((char*)dest)[i] = ((char*)src)[i];
-			i++;
-		}
-	}
-	return (dest);
-}
 
 int		get_next_line(int fd, char **line)
 {
-	char		buff[BUFFER_SIZE + 1];
-	char		new_line[100];
-	int			bytes_readed;
-	static char	*remaining;
-	unsigned int i;
+	char			*buff;
+	int				bytes_readed;
+	static char		*remaining;
+	char			*copy;
 
-	bytes_readed = read(fd, buff, BUFFER_SIZE);
-	buff[bytes_readed] = '\0';
-	printf("%s\n", buff);
-	i = 0;
-	while (buff[i] != '\n')
-		i++;
-	ft_memmove(new_line, buff, i);
-	new_line[i] = '\0';
-	printf("%s\n", new_line);
-	(void)fd;
-	(void)*line;
-	return (0);
+	bytes_readed = 1;
+	if (fd < 0 || BUFFER_SIZE <= 0 || !line)
+		return (-1);
+	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buff)
+		return (-1);
+	while (!ft_is_new_line(remaining) && bytes_readed != 0)
+	{
+		if ((bytes_readed = read(fd, buff, BUFFER_SIZE)) == -1)
+		{
+			free(buff);
+			return (-1);
+		}
+		buff[bytes_readed] = '\0';
+		copy = remaining;
+		remaining = ft_strjoin(remaining, buff);
+		free(copy);
+	}
+	free(buff);
+	*line = ft_get_new_line(remaining);
+	remaining = ft_get_the_rest(remaining);
+	if (bytes_readed == 0)
+		return (0);
+	return (1);
 }
