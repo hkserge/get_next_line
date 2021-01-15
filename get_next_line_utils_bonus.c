@@ -6,7 +6,7 @@
 /*   By: khelegbe <khelegbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 17:15:23 by khelegbe          #+#    #+#             */
-/*   Updated: 2021/01/11 00:28:00 by khelegbe         ###   ########.fr       */
+/*   Updated: 2021/01/15 15:02:05 by khelegbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,14 @@ char	*ft_get_the_rest(char *str)
 	rest = malloc(sizeof(char) * (ft_strlen(str) - i));
 	if (!rest)
 		return (0);
-	j = i + 1;
+	if (str[i] == '\n')
+	{
+		j = i + 1;
+	}
+	else
+	{
+		j = i;
+	}
 	i = 0;
 	while (str[j])
 		rest[i++] = str[j++];
