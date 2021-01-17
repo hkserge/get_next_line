@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: khelegbe <khelegbe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 17:15:04 by khelegbe          #+#    #+#             */
-/*   Updated: 2021/01/11 00:22:16 by khelegbe         ###   ########.fr       */
+/*   Updated: 2021/01/17 02:41:20 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,16 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-int			get_next_line(int fd, char **line);
-size_t		ft_strlen(const char *str);
-int			ft_is_new_line(char *str);
-char		*ft_get_new_line(char *str);
-char		*ft_get_the_rest(char *str);
-char		*ft_strjoin(char *s1, char const *s2);
+typedef struct s_rem	t_rem;
+
+struct					s_rem {
+	char	*str;
+};
+
+int						get_next_line(int fd, char **line);
+int						ft_is_new_line(char *str);
+char					*ft_get_new_line(char *str);
+char					*ft_get_the_rest(char *str);
+char					*ft_strjoin(char *s1, char const *s2);
 
 #endif
