@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: khelegbe <khelegbe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 17:15:23 by khelegbe          #+#    #+#             */
-/*   Updated: 2021/01/11 00:23:47 by khelegbe         ###   ########.fr       */
+/*   Updated: 2021/01/17 01:40:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,23 +68,29 @@ char	*ft_get_the_rest(char *str)
 	char			*rest;
 
 	i = 0;
+	j = 0;
+	rest = NULL;
 	if (*str == '\0')
 	{
 		free(str);
 		return (0);
 	}
-	if (!str)
-		return (0);
 	while (str[i] != '\n' && str[i] != '\0')
 		i++;
-	rest = malloc(sizeof(char) * (ft_strlen(str) - i));
+	if (str[i] != '\0')
+		rest = malloc(sizeof(char) * (ft_strlen(str) - i));
 	if (!rest)
 		return (0);
-	j = i + 1;
-	i = 0;
-	while (str[j])
-		rest[i++] = str[j++];
-	rest[i] = '\0';
+	i++;
+	if (str[i] == '\0')
+	{
+		free(rest);
+		free(str);
+		return (0);
+	}
+	while (str[i])
+		rest[j++] = str[i++];
+	rest[j] = '\0';
 	free(str);
 	return (rest);
 }
