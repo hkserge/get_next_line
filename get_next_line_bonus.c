@@ -6,7 +6,7 @@
 /*   By: khelegbe <khelegbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 16:59:38 by khelegbe          #+#    #+#             */
-/*   Updated: 2021/01/17 03:21:58 by khelegbe         ###   ########.fr       */
+/*   Updated: 2021/01/19 00:04:03 by khelegbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int				get_next_line(int fd, char **line)
 	rem[fd]->str = ft_get_the_rest(rem[fd]->str);
 	if (bytes_readed == 0)
 	{
-		free(rem[fd]->str);
+		free(&rem[fd]->str);
 		return (0);
 	}
 	return (1);
