@@ -6,7 +6,7 @@
 /*   By: khelegbe <khelegbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 16:59:38 by khelegbe          #+#    #+#             */
-/*   Updated: 2021/01/24 17:22:33 by khelegbe         ###   ########.fr       */
+/*   Updated: 2021/01/24 17:58:52 by khelegbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,13 @@ static void		ft_alloc_rem(t_rem **rem, char **buff)
 	*buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 }
 
+static void		ft_free_struct(t_rem **rem)
+{
+	free((*rem)->str);
+	free(*rem);
+	*rem = 0;
+}
+
 int				get_next_line(int fd, char **line)
 {
 	char			*buff;
@@ -59,12 +66,10 @@ int				get_next_line(int fd, char **line)
 	free(buff);
 	*line = ft_get_new_line(rem[fd]->str);
 	rem[fd]->str = ft_get_the_rest(rem[fd]->str);
-    if (bytes_readed == 0)
-    {
-        free(rem[fd]->str);
-        free(rem[fd]);
-        rem[fd] = 0;
-        return (0);
-    }
+	if (bytes_readed == 0)
+	{
+		ft_free_struct(&rem[fd]);
+		return (0);
+	}
 	return (1);
 }
