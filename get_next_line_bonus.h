@@ -6,7 +6,7 @@
 /*   By: khelegbe <khelegbe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 17:15:04 by khelegbe          #+#    #+#             */
-/*   Updated: 2021/01/24 15:15:55 by khelegbe         ###   ########.fr       */
+/*   Updated: 2021/01/17 03:21:56 by khelegbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+
+typedef struct s_rem	t_rem;
+
+struct					s_rem {
+	char	*str;
+};
 
 int						get_next_line(int fd, char **line);
 int						ft_is_new_line(char *str);
